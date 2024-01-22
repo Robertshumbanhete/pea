@@ -1,0 +1,4 @@
+#ingore  artifacts: 
+/views/_admin_page_headers/admin_bottom.ejs 
+/views/_admin_page_headers/admin_top.ejs
+ 

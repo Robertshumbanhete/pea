@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Aplimac Loan Manager</title>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="article" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+    <!--end::Fonts-->
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
+    <!--begin::Page Vendor Stylesheets(used by this page)-->
+    <link
+      href="/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css"
+      rel="stylesheet"
+      type="text/css" />
+    <link
+      href="/assets/plugins/custom/datatables/datatables.bundle.css"
+      rel="stylesheet"
+      type="text/css" />
+    <!--end::Page Vendor Stylesheets-->
+    <!--begin::Global Stylesheets Bundle(used by all pages)-->
+    <link
+      href="/assets/plugins/global/plugins.bundle.css"
+      rel="stylesheet"
+      type="text/css" />
+    <link
+      href="/assets/css/style.bundle.css"
+      rel="stylesheet"
+      type="text/css" />
+
+    <!--end::Global Stylesheets Bundle-->
+    <script src="/libraries/jquery/jquery.min.js"></script>
+    <script src="/assets/js/custom_init.js"></script>
+    <script src="/assets/js/custom.js"></script>
+  </head>
+
+  <body>
+    <div class="d-flex justify-content-center" style="margin-top: 100px">
+      <div class="card shadow-lg w-lg-800px bg-dark">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-4 d-flex flex-center">
+              <div>
+                <div class="d-flex justify-content-center">
+                  <img
+                    alt="Logo"
+                    src="/assets/media/logos/logo-dark.png"
+                    class="h-50px" />
+                </div>
+                <div class="d-flex justify-content-center">
+                  <div class="fs-4 fw-bolder mb-3">Hotle Managemnt System</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <div class="card shadow-lg border-dark border">
+                <div class="card-body">
+                  <div class="card-title d-flex justify-content-center">
+                    <span class="fw-bolder text-dark fs-2 me-2">
+                      <span class="svg-icon svg-icon-dark svg-icon-2x"
+                        ><svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none">
+                          <rect
+                            opacity="0.3"
+                            x="2"
+                            y="2"
+                            width="20"
+                            height="20"
+                            rx="10"
+                            fill="black" />
+                          <path
+                            d="M15.8054 11.639C15.6757 11.5093 15.5184 11.4445 15.3331 11.4445H15.111V10.1111C15.111 9.25927 14.8055 8.52784 14.1944 7.91672C13.5833 7.30557 12.8519 7 12 7C11.148 7 10.4165 7.30557 9.80547 7.9167C9.19432 8.52784 8.88885 9.25924 8.88885 10.1111V11.4445H8.66665C8.48153 11.4445 8.32408 11.5093 8.19444 11.639C8.0648 11.7685 8 11.926 8 12.1112V16.1113C8 16.2964 8.06482 16.4539 8.19444 16.5835C8.32408 16.7131 8.48153 16.7779 8.66665 16.7779H15.3333C15.5185 16.7779 15.6759 16.7131 15.8056 16.5835C15.9351 16.4539 16 16.2964 16 16.1113V12.1112C16.0001 11.926 15.9351 11.7686 15.8054 11.639ZM13.7777 11.4445H10.2222V10.1111C10.2222 9.6204 10.3958 9.20138 10.7431 8.85421C11.0903 8.507 11.5093 8.33343 12 8.33343C12.4909 8.33343 12.9097 8.50697 13.257 8.85421C13.6041 9.20135 13.7777 9.6204 13.7777 10.1111V11.4445Z"
+                            fill="black" />
+                        </svg>
+                      </span>
+                      Login
+                    </span>
+                  </div>
+
+                  <div class="separator border-1 my-2 border-light-dark"></div>
+                  <!-- 
+                        <div class="d-flex flex-center my-10 text-dark" id="signin_form_loader ">
+                          <div class="spinner-grow" role="status"></div>
+                        </div> -->
+
+                  <div class="" id="signin_login_form">
+                    <div id="error_msg"></div>
+
+                    <label class="form-label fs-6 fw-bolder text-dark"
+                      >Username</label
+                    >
+                    <input
+                      class="form-control form-control-lg form-control-solid"
+                      type="text"
+                      id="username"
+                      autocomplete="off"
+                      id="inp_username" />
+                    <div class="text-danger" id="label_username"></div>
+
+                    <label class="form-label fw-bolder text-dark fs-6 mb-0"
+                      >Password</label
+                    >
+                    <input
+                      class="form-control form-control-lg form-control-solid"
+                      type="password"
+                      id="password"
+                      autocomplete="off"
+                      id="inp_password" />
+                    <div class="text-danger" id="label_password"></div>
+
+                    <button
+                      name="submit"
+                      type="button"
+                      class="btn btn-hover-rise btn-lg btn-dark w-100 mb-5 mt-3"
+                      onclick="query_signin()"
+                      id="">
+                      <span class="indicator-label"
+                        >Sign in
+                        <span id="btn_signin"></span>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var password;
+      var username;
+
+      function update_globals() {
+        // Labels
+
+        password = $("#password").val();
+        $("#label_password").html("");
+        $("#password").removeClass("border-danger");
+
+        username = $("#username").val();
+        $("#label_username").html("");
+        $("#username").removeClass("border-danger");
+      }
+
+      // AJAX with JQuery >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+      let form_data = new FormData();
+
+      async function query_signin() {
+        update_globals();
+
+        form_data = new FormData();
+
+        form_data.append("password", password);
+        form_data.append("username", username);
+
+        set_loading_spinner("btn_signin");
+        url = "/signin";
+        ajax_response = await ajax_request_jquery(url, form_data);
+        release_loading_spinner("btn_signin");
+
+        console.log(ajax_response);
+        // >>>>>>>>>>>>>> Response
+        const success_response = () => {
+          window.location.href = "/";
+        };
+        display_ajax_response(ajax_response, success_response);
+      }
+    </script>
+
+    <script src="/assets/plugins/global/plugins.bundle.js"></script>
+    <script src="/assets/js/scripts.bundle.js"></script>
+    <script src="/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
+    <script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+  </body>
+</html>

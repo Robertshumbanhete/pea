@@ -1,0 +1,40 @@
+<script>
+  // Get Items from Params
+  // Function to parse GET parameters from URL
+  function parseGetParams() {
+    var params = {};
+    var queryString = window.location.search.substring(1);
+    var vars = queryString.split("&");
+    for (var i = 0; i < vars.length; i++) {
+      var pair = vars[i].split("=");
+      if (typeof params[pair[0]] === "undefined") {
+        params[pair[0]] = decodeURIComponent(pair[1]);
+      } else if (typeof params[pair[0]] === "string") {
+        var arr = [params[pair[0]], decodeURIComponent(pair[1])];
+        params[pair[0]] = arr;
+      } else {
+        params[pair[0]].push(decodeURIComponent(pair[1]));
+      }
+    }
+    return params;
+  }
+
+  // Function to assign values to form inputs using jQuery
+  function assignFormValues() {
+    var urlParams = parseGetParams();
+
+    console.log("urlParams");
+    console.log(urlParams);
+    $('input[name="first_name"]').val(urlParams["first_name"] || "");
+    $('input[name="last_name"]').val(urlParams["last_name"] || "");
+    $('input[name="gender"]').val(urlParams["gender"] || "");
+    $('input[name="nationality"]').val(urlParams["nationality"] || "");
+    $('input[name="national_id"]').val(urlParams["national_id"] || "");
+    $('input[name="call_number"]').val(urlParams["call_number"] || "");
+  }
+
+  $(document).ready(function () {
+    // Call the function to assign values to form inputs
+    assignFormValues();
+  });
+</script>

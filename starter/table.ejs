@@ -1,0 +1,47 @@
+<table id="_table" class="table table-row-bordered gy-3 gs-7 border rounded">
+  <thead>
+    <tr class="fw-bolder fs-6 text-gray-800 px-7">
+      <th>User</th>
+      <th>Payment</th>
+      <th>Customer</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <script>
+      const empty = <%- JSON.stringify(locals.empty) || `[]` %>
+
+      empty.forEach(element => {
+        document.write(`
+          <tr onclick="window.location.href='${element.id}'" class="hoverable bg-hover-secondary">
+            <td>${element.user}</td>
+            <td>${element.payment}</td>
+            <td>${element.customer}</td>
+            <td>${element.date}</td>
+          </tr>
+        `);
+
+      });
+    </script>
+  </tbody>
+</table>
+
+<script>
+  $(document).ready(() => {
+    $("#_table").DataTable({
+      language: {
+        lengthMenu: "Show _MENU_",
+      },
+      dom:
+        "<'row'" +
+        "<'col-sm-6 d-flex align-items-center justify-conten-start'l>" +
+        "<'col-sm-6 d-flex align-items-center justify-content-end'f>" +
+        ">" +
+        "<'table-responsive'tr>" +
+        "<'row'" +
+        "<'col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start'i>" +
+        "<'col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end'p>" +
+        ">",
+    });
+  });
+</script>

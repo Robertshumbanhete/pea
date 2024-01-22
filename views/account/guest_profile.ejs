@@ -1,0 +1,219 @@
+<%- include('../_admin_page_headers/admin_top') %>
+
+<div class="fs-2 text-dark">
+  <span class="svg-icon svg-icon-2 svg-icon-dark">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none">
+      <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor"></rect>
+      <rect
+        opacity="0.3"
+        x="13"
+        y="2"
+        width="9"
+        height="9"
+        rx="2"
+        fill="currentColor"></rect>
+      <rect
+        opacity="0.3"
+        x="13"
+        y="13"
+        width="9"
+        height="9"
+        rx="2"
+        fill="currentColor"></rect>
+      <rect
+        opacity="0.3"
+        x="2"
+        y="13"
+        width="9"
+        height="9"
+        rx="2"
+        fill="currentColor"></rect>
+    </svg> </span
+  >Guest Profile -> <%- (locals.first_name) %> <%- (locals.last_name) %>
+</div>
+
+<hr />
+<div class="mb-6">
+  <a
+    id="user_menu_1"
+    href="/guests"
+    class="btn shadow btn-light-dark btn-hover-scale btn-sm me-2 border border-dark">
+    <li class="fa fa-arrow-left me-2"></li>
+
+    Guest List
+  </a>
+</div>
+
+<section>
+  <div class="card shadow border border-dark">
+    <div class="card-body">
+      <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
+        <li class="nav-item">
+          <a
+            class="nav-link active text-primary"
+            data-bs-toggle="tab"
+            href="#kt_tab_pane_1"
+            >Personal Details</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link text-primary"
+            data-bs-toggle="tab"
+            href="#kt_tab_pane_2"
+            >Reservations</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link text-primary"
+            data-bs-toggle="tab"
+            href="#kt_tab_pane_3"
+            >Account</a
+          >
+        </li>
+      </ul>
+
+      <div class="tab-content" id="myTabContent">
+        <div
+          class="tab-pane fade show active"
+          id="kt_tab_pane_1"
+          role="tabpanel">
+          <section>
+            <div class="card shadow border border-dark">
+              <div class="card-body">
+                <table class="table table-striped">
+                  <body>
+                    <tr>
+                      <td class="fw-bolder" style="width: 20%">First Name:</td>
+                      <td><%- (locals.first_name) %></td>
+                    </tr>
+                    <tr>
+                      <td class="fw-bolder" style="width: 20%">Last Name:</td>
+                      <td><%- (locals.last_name) %></td>
+                    </tr>
+                    <tr>
+                      <td class="fw-bolder" style="width: 20%">Gender:</td>
+                      <td><%- (locals.gender) %></td>
+                    </tr>
+                    <tr>
+                      <td class="fw-bolder" style="width: 20%">Nationality:</td>
+                      <td><%- (locals.nationality) %></td>
+                    </tr>
+                    <tr>
+                      <td class="fw-bolder" style="width: 20%">National ID:</td>
+                      <td><%- (locals.national_id) %></td>
+                    </tr>
+                    <tr>
+                      <td class="fw-bolder" style="width: 20%">Address:</td>
+                      <td>
+                        <%- (locals.address_line_1) %>,<%-
+                        (locals.address_line_2) %> <br /><%-
+                        (locals.address_city) %>,<%- (locals.address_country) %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="fw-bolder" style="width: 20%">Call Number:</td>
+                      <td><%- (locals.call_number) %></td>
+                    </tr>
+                    <tr>
+                      <td class="fw-bolder" style="width: 20%">Email:</td>
+                      <td><%- (locals.email) %></td>
+                    </tr>
+                  </body>
+                </table>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
+          <section>
+            <div class="card shadow border border-dark">
+              <div class="card-body">
+                <table
+                  id="guest_res_table"
+                  class="table table-row-bordered gy-3 gs-7 border rounded">
+                  <thead>
+                    <tr class="fw-bolder text-gray-800 px-7">
+                      <th>Room Code</th>
+                      <th>Room Type</th>
+                      <th>Booking Type</th>
+                      <th>Check In Status</th>
+                      <th>Check Out Status</th>
+                      <th>Reservations status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <script>
+                      const reservations = <%- JSON.stringify(locals.reservations) || `[]` %>
+
+                      reservations.forEach(element => {
+                        document.write(`
+                          <tr onclick="window.location.href='${element.id}'" class="hoverable bg-hover-secondary">
+                            <td>${element.code}</td>
+                            <td>${element.number}</td>
+                            <td>${element.room_type}</td>
+                            <td>${element.booking_type}</td>
+                            <td>${element.check_in_status}</td>
+                            <td>${element.check_out_status}</td>
+                            <td>${element.status}</td>
+
+                          </tr>
+                        `);
+
+                      });
+                    </script>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="tab-pane fade" id="kt_tab_pane_3" role="tabpanel">
+          <section>
+            <script>
+              var account_status = `<%- (locals.account_status) %>`;
+
+              if (account_status === "active") {
+                document.write(
+                  ` <%- include('./includes/guest_profile/account_active') %>`
+                );
+              } else {
+                document.write(
+                  `<%- include('./includes/guest_profile/account_inactive') %>`
+                );
+              }
+            </script>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  $(document).ready(() => {
+    $("#guest_res_table").DataTable({
+      language: {
+        lengthMenu: "Show _MENU_",
+      },
+      dom:
+        "<'row'" +
+        "<'col-sm-6 d-flex align-items-center justify-conten-start'l>" +
+        "<'col-sm-6 d-flex align-items-center justify-content-end'f>" +
+        ">" +
+        "<'table-responsive'tr>" +
+        "<'row'" +
+        "<'col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start'i>" +
+        "<'col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end'p>" +
+        ">",
+    });
+  });
+</script>
+
+<%- include('../_admin_page_headers/admin_bottom') %>

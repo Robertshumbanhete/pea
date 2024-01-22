@@ -1,0 +1,134 @@
+<%- include('../_admin_page_headers/admin_top') %>
+
+<div class="fs-2 text-dark">
+  <span class="svg-icon svg-icon-2 svg-icon-dark">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none">
+      <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor"></rect>
+      <rect
+        opacity="0.3"
+        x="13"
+        y="2"
+        width="9"
+        height="9"
+        rx="2"
+        fill="currentColor"></rect>
+      <rect
+        opacity="0.3"
+        x="13"
+        y="13"
+        width="9"
+        height="9"
+        rx="2"
+        fill="currentColor"></rect>
+      <rect
+        opacity="0.3"
+        x="2"
+        y="13"
+        width="9"
+        height="9"
+        rx="2"
+        fill="currentColor"></rect>
+    </svg>
+  </span>
+  User Access
+</div>
+<hr class="text-dark" />
+
+<section><%- include('./includes/user_menu') %></section>
+
+<div class="card shadow border border-dark">
+  <div class="card-body">
+    <div class="row">
+      <h5>Account Access</h5>
+      <div class="col-sm-4">
+        <label class="fw-bolder fs-7">User Role</label>
+        <select id="user_role" class="form-select form-select-sm">
+          <option></option>
+          <script>
+            const select_user_role =  <%- JSON.stringify(locals.select_user_role) || `[]` %>;
+
+            select_user_role.forEach(element => {
+              document.write(`<option value="${element.id}">${element.name}</option>`);
+            });
+          </script>
+        </select>
+        <div class="text-danger" id="label_user_role"></div>
+      </div>
+      <div class="col-sm-4">
+        <label class="fw-bolder fs-7">Access Level</label>
+        <select id="access_level" class="form-select form-select-sm">
+          <option></option>
+          <script>
+            const select_access_level =  <%- JSON.stringify(locals.select_access_level) || `[]` %>;
+
+            select_access_level.forEach(element => {
+              document.write(`<option value="${element.id}">${element.name}</option>`);
+            });
+          </script>
+        </select>
+        <div class="text-danger" id="label_access_level"></div>
+      </div>
+    </div>
+
+    <button
+      class="btn btn-sm btn-dark mt-6"
+      onclick="query_update_user_account_access()">
+      Update <span id="btn_update_account_access"></span>
+    </button>
+  </div>
+</div>
+
+<script>
+
+    var access_level;
+    var user_role;
+
+    function update_globals() {
+      // Labels
+
+      access_level = $("#access_level").val();
+      $("#label_empty").html("");
+      $("#access_level").removeClass("border-danger");
+
+      user_role = $("#user_role").val();
+      $("#label_user_role").html("");
+      $("#user_role").removeClass("border-danger");
+    }
+
+    async function query_update_user_account_access() {
+    update_globals();
+
+    var ajax_url = "/user/<%- locals.param_user_id || `0` %>/update/account_access";
+    data = `access_level=${access_level}&user_role=${user_role}`;
+
+    set_loading_spinner("btn_update_account_access");
+    ajax_response = await ajax_request(ajax_url, data);
+    release_loading_spinner("btn_update_account_access");
+
+    console.log(ajax_response);
+    // >>>>>>>>>>>>>> Response
+    const success_response = () => {
+      _display_success_server_res_msg("Successful", `  <br> Finalizing  <br> <br> <span class="spinner-border spinner-border sm">`, "success");
+    };
+    display_ajax_response(ajax_response, success_response);
+    // >>>>>>>>>>>>>>
+  }
+
+
+  const user_account_access_details = <%- JSON.stringify(locals.user_account_access_details) || `{}` %>;
+
+    $(document).ready(() => {
+      $("#user_menu_3").addClass("active");
+
+      $("#user_role").val(user_account_access_details.user_role);
+      $("#access_level").val(user_account_access_details.access_level);
+
+      display_breadcrumb(" User Details  ");
+    });
+</script>
+<%- include('../_admin_page_headers/admin_bottom') %>

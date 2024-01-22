@@ -1,0 +1,141 @@
+<%- include('../_admin_page_headers/admin_top') %>
+
+<div class="fs-2 text-dark">
+  <span class="svg-icon svg-icon-2 svg-icon-dark">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none">
+      <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor"></rect>
+      <rect
+        opacity="0.3"
+        x="13"
+        y="2"
+        width="9"
+        height="9"
+        rx="2"
+        fill="currentColor"></rect>
+      <rect
+        opacity="0.3"
+        x="13"
+        y="13"
+        width="9"
+        height="9"
+        rx="2"
+        fill="currentColor"></rect>
+      <rect
+        opacity="0.3"
+        x="2"
+        y="13"
+        width="9"
+        height="9"
+        rx="2"
+        fill="currentColor"></rect>
+    </svg> </span
+  >Payment Type
+</div>
+<hr class="text-dark" />
+
+<div>
+  <section><%- include('./includes/global_config_menu') %></section>
+  <div>
+    <button
+      class="btn shadow btn-light-dark btn-hover-rise btn-sm me-2 border border-dark mb-3"
+      data-bs-toggle="modal"
+      data-bs-target="#add_payment_type">
+      <div class="mb-2">Add Payment Type</div>
+    </button>
+  </div>
+
+  <div class="card shadow border border-dark">
+    <div class="card-body">
+      <table
+        id="_table"
+        class="table table-row-bordered gy-3 gs-7 border rounded">
+        <thead>
+          <tr class="fw-bolder fs-6 text-gray-800 px-7">
+            <th>Code</th>
+            <th>Rate</th>
+            <th>Currency</th>
+          </tr>
+        </thead>
+        <tbody>
+          <script>
+            const empty = <%- JSON.stringify(locals.empty) || `[]` %>
+
+            empty.forEach(element => {
+              document.write(`
+                <tr onclick="window.location.href='${element.id}'" class="hoverable bg-hover-secondary">
+
+                  <td>${element.code}</td>
+                  <td>${element.rate}</td>
+                  <td>${element.currency}</td>
+
+                </tr>
+              `);
+
+            });
+          </script>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" tabindex="-1" id="add_payment_type">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h5 class="modal-title">
+          <span class="svg-icon svg-icon-dark svg-icon-3"> </span>Add Payment
+          Type
+        </h5>
+
+        <div class="row">
+          <div class="col-sm-6 mt-6">
+            <label class="fw-bolder fs-8">Code </label>
+            <input type="text" id="code" class="form-control form-control-sm" />
+            <span class="text-danger" id="label_code"></span>
+          </div>
+          <div class="col-sm-6 mt-6">
+            <label class="fw-bolder fs-8">Rate </label>
+            <input type="text" id="rate" class="form-control form-control-sm" />
+            <span class="text-danger" id="label_rate"></span>
+          </div>
+
+          <div class="col-sm-6 mt-6">
+            <label class="fw-bolder fs-8">Currency </label>
+            <input
+              type="text"
+              id="currency"
+              class="form-control form-control-sm" />
+            <span class="text-danger" id="label_currency"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-sm btn-light-danger"
+          data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-sm btn-primary"
+          onclick="query_add_room()">
+          Submit <span id="btn_add_payment_type"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#g_menu_3").addClass("active");
+</script>
+<%- include('../_admin_page_headers/admin_bottom') %>

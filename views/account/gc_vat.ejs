@@ -1,0 +1,69 @@
+<%- include('../_admin_page_headers/admin_top') %>
+
+<div class="fs-2 text-dark">
+  <span class="svg-icon svg-icon-2 svg-icon-dark">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none">
+      <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor"></rect>
+      <rect
+        opacity="0.3"
+        x="13"
+        y="2"
+        width="9"
+        height="9"
+        rx="2"
+        fill="currentColor"></rect>
+      <rect
+        opacity="0.3"
+        x="13"
+        y="13"
+        width="9"
+        height="9"
+        rx="2"
+        fill="currentColor"></rect>
+      <rect
+        opacity="0.3"
+        x="2"
+        y="13"
+        width="9"
+        height="9"
+        rx="2"
+        fill="currentColor"></rect>
+    </svg> </span
+  >VAT
+</div>
+<hr class="text-dark" />
+
+<div>
+    <section><%- include('./includes/global_config_menu') %></section>
+
+
+
+    
+    <div class="card shadow border border-dark mt-5">
+        <div class="card-body">
+            <div class="fs-8 mb-6 fw-bolder text-dark">Text Number</div>
+
+            <input
+              type="text"
+              name="text_number"
+              id="text_number"
+              step="1"
+              class="mb-6  rounded form-control form-control-sm border border-dark" />
+            <a id="level_1_menu_3" href="/global_config/vat" class="btn border border-dark nav-item shadow btn-light-dark btn-hover-scale btn-sm me-2"> Update VAT </a>
+
+
+
+        </div>
+      </div>
+
+</div>
+
+<script>
+    $("#g_menu_4").addClass("active");
+  </script>
+<%- include('../_admin_page_headers/admin_bottom') %>

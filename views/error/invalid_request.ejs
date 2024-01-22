@@ -1,0 +1,59 @@
+<%- include('../_admin_page_headers/admin_top') %>
+
+<div class="py-5">
+  <div
+    class="rounded border p-10 pb-0 d-flex flex-column flex-center border border-danger">
+    <div
+      class="alert alert-dismissible bg-light-danger d-flex flex-center flex-column py-10 px-10 px-lg-20 mb-10">
+      <!--begin::Icon-->
+      <!--begin::Svg Icon | path: icons/duotune/general/gen044.svg-->
+      <span class="svg-icon svg-icon-5tx svg-icon-danger mb-5">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none">
+          <rect
+            opacity="0.3"
+            x="2"
+            y="2"
+            width="20"
+            height="20"
+            rx="10"
+            fill="currentColor"></rect>
+          <rect
+            x="11"
+            y="14"
+            width="7"
+            height="2"
+            rx="1"
+            transform="rotate(-90 11 14)"
+            fill="currentColor"></rect>
+          <rect
+            x="11"
+            y="17"
+            width="2"
+            height="2"
+            rx="1"
+            transform="rotate(-90 11 17)"
+            fill="currentColor"></rect>
+        </svg>
+      </span>
+      <!--end::Svg Icon-->
+      <!--end::Icon-->
+      <!--begin::Content-->
+      <div class="text-center text-dark">
+        <h1 class="fw-bolder mb-5"><%- locals.err_msg || 'Error' %></h1>
+
+        <div class="d-flex flex-center flex-wrap">
+          <a href="/" class="btn btn-danger m-2">Back Home</a>
+        </div>
+        <!--end::Buttons-->
+      </div>
+      <!--end::Content-->
+    </div>
+  </div>
+</div>
+
+<%- include('../_admin_page_headers/admin_bottom') %>

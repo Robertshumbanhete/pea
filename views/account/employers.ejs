@@ -1,0 +1,458 @@
+<%- include('../_admin_page_headers/admin_top') %>
+
+<div class="fs-2 text-dark">
+  <span class="svg-icon svg-icon-2 svg-icon-dark">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none">
+      <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor"></rect>
+      <rect
+        opacity="0.3"
+        x="13"
+        y="2"
+        width="9"
+        height="9"
+        rx="2"
+        fill="currentColor"></rect>
+      <rect
+        opacity="0.3"
+        x="13"
+        y="13"
+        width="9"
+        height="9"
+        rx="2"
+        fill="currentColor"></rect>
+      <rect
+        opacity="0.3"
+        x="2"
+        y="13"
+        width="9"
+        height="9"
+        rx="2"
+        fill="currentColor"></rect>
+    </svg> </span
+  >Employers
+</div>
+<hr class="text-dark" />
+
+<div class="mb-4 d-flex">
+  <a
+    id="g_menu_2"
+    href="/employers"
+    class="btn shadow btn-light-dark btn-hover-rise btn-sm me-2 border border-dark"
+    data-bs-toggle="modal"
+    data-bs-target="#register_new_employer">
+    Register New Employer</a
+  >
+</div>
+
+<!-- Filter Form -->
+<div class="mb-3">
+  <span class="svg-icon svg-icon-primary me-2 svg-icon-2"
+    ><svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none">
+      <path
+        d="M17.5 11H6.5C4 11 2 9 2 6.5C2 4 4 2 6.5 2H17.5C20 2 22 4 22 6.5C22 9 20 11 17.5 11ZM15 6.5C15 7.9 16.1 9 17.5 9C18.9 9 20 7.9 20 6.5C20 5.1 18.9 4 17.5 4C16.1 4 15 5.1 15 6.5Z"
+        fill="black" />
+      <path
+        opacity="0.3"
+        d="M17.5 22H6.5C4 22 2 20 2 17.5C2 15 4 13 6.5 13H17.5C20 13 22 15 22 17.5C22 20 20 22 17.5 22ZM4 17.5C4 18.9 5.1 20 6.5 20C7.9 20 9 18.9 9 17.5C9 16.1 7.9 15 6.5 15C5.1 15 4 16.1 4 17.5Z"
+        fill="black" /></svg></span
+  >Search<span class="fs-8 fw-normal text-danger ms-2"
+    ><%- locals.search_string %></span
+  >
+  <a href="/employers" class="fs-8 text-primary ms-2"> (Clear)</a>
+</div>
+
+<div class="card border border-dark shadow mb-6">
+  <div class="card-body py-2 scroll">
+    <form action="/employers">
+      <table class="table align-middle gy-1 gs-7 mt-2">
+        <thead>
+          <tr>
+            <th>
+              <div class="fs-8 fw-bolder text-dark">First Name</div>
+
+              <input
+                type="text"
+                name="comapany_name"
+                step="1"
+                class="rounded form-control form-control-sm border border-dark" />
+            </th>
+
+            <th>
+              <div class="fs-8 fw-bolder text-dark">Last Name</div>
+
+              <input
+                type="text"
+                name="profile"
+                step="1"
+                class="rounded form-control form-control-sm border border-dark" />
+            </th>
+
+            <th>
+              <div class="fs-8 fw-bolder text-dark">category</div>
+
+              <select
+                class="form-select form-select-sm rounded border border-dark"
+                name="category">
+                <option value="">Select</option>
+                <option value="Adminstrative">Adminstrative</option>
+                <option value="IT">IT</option>
+              </select>
+            </th>
+
+            <th>
+              <div class="fs-8 fw-bolder text-dark"> Company Profile</div>
+
+              <input
+                type="text"
+                name="profile"
+                step="1"
+                class="rounded form-control form-control-sm border border-dark" />
+            </th>
+
+            <th>
+              <div class="fs-8 fw-bolder text-dark">City</div>
+
+              <input
+                type="text"
+                name="city"
+                step="1"
+                class="rounded form-control form-control-sm border border-dark" />
+            </th>
+
+            <th>
+              <div class="fs-8 fw-bolder text-dark">Call Number</div>
+
+              <input
+                type="text"
+                name="call_number"
+                step="1"
+                class="rounded form-control form-control-sm border border-dark" />
+            </th>
+
+            <th>
+              <button
+                type="submit"
+                class="btn btn-dark btn-sm btn-hover-rise rounded">
+                <li class="fa fa-search"></li>
+              </button>
+            </th>
+          </tr>
+        </thead>
+      </table>
+    </form>
+  </div>
+</div>
+<!-- End Filter Form -->
+
+<!-- Table -->
+<div class="card shadow border border-dark">
+  <div class="card-body">
+    <table
+      id="employers_table"
+      class="table table-row-bordered gy-3 gs-7 border rounded">
+      <thead>
+        <tr class="fw-bolder fs-6 text-gray-800 px-7">
+          <th>Company Name</th>
+          <th>Company profile</th>
+          <th>Company Category</th>
+          <th>Company Description</th>
+          <th>Address</th>
+          <th>Call Number</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <script>
+          const employers = <%- JSON.stringify(locals.employers) || `[]` %>
+
+          employers.forEach(element => {
+            document.write(`
+              <tr onclick="window.location.href='/employer/${element.id}'" class="hoverable bg-hover-secondary">
+                <td>${element.comapany_name}</td>
+                <td>${element.profile}</td>
+                <td>${element.category}</td>
+                <td>${element.description}</td>
+         
+                <td>${element.address_line_2}, ${element.address_line_2} <br/>${element.address_city},${element.address_country}</td>
+
+                <td>${element.call_number}</td>
+                <td>${element.email}</td>
+              </tr>
+            `);
+
+          });
+        </script>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- End Table -->
+
+<!-- Modal -->
+<div class="modal fade" tabindex="-1" id="register_new_employer">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Register New employer</h5>
+
+        <!--begin::Close-->
+        <div
+          class="btn btn-icon btn-sm btn-hover-scale ms-2"
+          data-bs-dismiss="modal"
+          aria-label="Close">
+          <li class="fa fa-times fs-1"></li>
+        </div>
+        <!--end::Close-->
+      </div>
+
+      <div class="modal-body">
+        <hr />
+        <div class="fw-bolder">Personal Details</div>
+        <hr />
+        <div>First Name</div>
+        <input
+          type="text"
+          id="comapany_name"
+          class="form-control form-control-sm mb-3" />
+
+        <div class="text-danger" id="label_comapany_name"></div>
+        <div>Company profile</div>
+        <input
+          type="text"
+          id="profile"
+          class="form-control form-control-sm mb-3" />
+
+        <div class="text-danger" id="label_profile"></div>
+        <div>Company Category</div>
+        <select name="" id="category" class="form-select form-select-sm mb-3">
+          <option value=""></option>
+          <option value="Adminstrative">Adminstrative</option>
+          <option value="IT">IT</option>
+        </select>
+
+        <div class="text-danger" id="label_category"></div>
+        <div>Company Description</div>
+        <input
+          type="text"
+          id="discription"
+          class="form-control form-control-sm mb-3" />
+        <div class="text-danger" id="label_discription"></div>
+        <div>City</div>
+
+        <input
+          type="text"
+          id="city"
+          class="form-control form-control-sm mb-3" />
+
+        <div class="text-danger" id="label_city"></div>
+
+        <hr />
+        <div class="fw-bolder">Contact Details</div>
+        <hr />
+
+        <div>Call Number</div>
+        <input
+          type="text"
+          id="call_number"
+          class="form-control form-control-sm mb-3" />
+
+        <div class="text-danger" id="label_call_number"></div>
+
+        <div>Email</div>
+        <input
+          type="text"
+          id="email"
+          class="form-control form-control-sm mb-3" />
+
+        <div class="text-danger" id="label_email"></div>
+
+        <hr />
+        <div class="fw-bolder">Address</div>
+        <hr />
+
+        <div>Street</div>
+        <input
+          type="text"
+          id="address_line_1"
+          class="form-control form-control-sm mb-3" />
+
+        <div class="text-danger" id="label_address_line_1"></div>
+        <div>Surbub</div>
+        <input
+          type="text"
+          id="address_line_2"
+          class="form-control form-control-sm mb-3" />
+
+        <div class="text-danger" id="label_address_line_2"></div>
+        <div>City</div>
+        <input
+          type="text"
+          id="address_city"
+          class="form-control form-control-sm mb-3" />
+
+        <div class="text-danger" id="label_address_city"></div>
+        <div>Country</div>
+        <input
+          type="text"
+          id="address_country"
+          class="form-control form-control-sm mb-3" />
+
+        <div class="text-danger" id="label_address_country"></div>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-sm btn-dark"
+          onclick="query_register_employer()">
+          Submit <span id="btn_register_employer"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var comapany_name;
+  var profile;
+  var category;
+  var discription;
+  var call_number;
+  var email;
+  var address_line_1;
+  var address_line_2;
+  var address_city;
+  var address_country;
+
+  function update_globals() {
+    // Labels
+    comapany_name = $("#comapany_name").val();
+    $("#label_comapany_name").html("");
+    $("#comapany_name").removeClass("border-danger");
+    // Labels
+    profile = $("#profile").val();
+    $("#label_profile").html("");
+    $("#profile").removeClass("border-danger");
+    // Labels
+    category = $("#category").val();
+    $("#label_category").html("");
+    $("#category").removeClass("border-danger");
+    // Labels
+    discription = $("#discription").val();
+    $("#label_discription").html("");
+    $("#discription").removeClass("border-danger");
+   
+    // Labels
+    call_number = $("#call_number").val();
+    $("#label_call_number").html("");
+    $("#call_number").removeClass("border-danger");
+    // Labels
+    email = $("#email").val();
+    $("#label_email").html("");
+    $("#email").removeClass("border-danger");
+    // Labels
+    address_line_1 = $("#address_line_1").val();
+    $("#label_address_line_1").html("");
+    $("#address_line_1").removeClass("border-danger");
+    // Labels
+    address_line_2 = $("#address_line_2").val();
+    $("#label_address_line_2").html("");
+    $("#address_line_2").removeClass("border-danger");
+    // Labels
+    address_city = $("#address_city").val();
+    $("#label_address_city").html("");
+    $("#address_city").removeClass("border-danger");
+    // Labels
+    address_country = $("#address_country").val();
+    $("#label_address_country").html("");
+    $("#address_country").removeClass("border-danger");
+  }
+
+  // AJAX with JQuery >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+  async function query_register_employer() {
+    update_globals();
+
+    form_data = new FormData();
+
+    form_data.append("comapany_name", comapany_name);
+    form_data.append("profile", profile);
+    form_data.append("category", category);
+    form_data.append("discription", discription);
+    form_data.append("call_number", call_number);
+    form_data.append("email", email);
+    form_data.append("address_line_1", address_line_1);
+    form_data.append("address_line_2", address_line_2);
+    form_data.append("address_city", address_city);
+    form_data.append("address_country", address_country);
+
+    set_loading_spinner("btn_register_employer");
+    url = "/employers/register_new";
+    ajax_response = await ajax_request_jquery(url, form_data);
+    release_loading_spinner("btn_register_employer");
+
+    console.log(ajax_response);
+    // >>>>>>>>>>>>>> Response
+    const success_response = () => {
+      _display_success_server_res_msg(
+        "Successful",
+        `  <br> Finalizing  <br> <br> <span class="spinner-border spinner-border sm">`,
+        "success"
+      );
+    };
+    display_ajax_response(ajax_response, success_response);
+  }
+</script>
+
+<script>
+  // Get Items from Params
+  // Function to parse GET parameters from URL
+  function parseGetParams() {
+    var params = {};
+    var queryString = window.location.search.substring(1);
+    var vars = queryString.split("&");
+    for (var i = 0; i < vars.length; i++) {
+      var pair = vars[i].split("=");
+      if (typeof params[pair[0]] === "undefined") {
+        params[pair[0]] = decodeURIComponent(pair[1]);
+      } else if (typeof params[pair[0]] === "string") {
+        var arr = [params[pair[0]], decodeURIComponent(pair[1])];
+        params[pair[0]] = arr;
+      } else {
+        params[pair[0]].push(decodeURIComponent(pair[1]));
+      }
+    }
+    return params;
+  }
+
+  // Function to assign values to form inputs using jQuery
+  function assignFormValues() {
+    var urlParams = parseGetParams();
+
+    console.log("urlParams");
+    console.log(urlParams);
+    $('input[name="comapany_name"]').val(urlParams["comapany_name"] || "");
+    $('input[name="profile"]').val(urlParams["profile"] || "");
+    $('input[name="category"]').val(urlParams["category"] || "");
+    $('input[name="profile"]').val(urlParams["profile"] || "");
+    $('input[name="city"]').val(urlParams["city"] || "");
+    $('input[name="call_number"]').val(urlParams["call_number"] || "");
+  }
+
+  $(document).ready(function () {
+    // Call the function to assign values to form inputs
+    assignFormValues();
+  });
+</script>
+
+<%- include('../_admin_page_headers/admin_bottom') %>

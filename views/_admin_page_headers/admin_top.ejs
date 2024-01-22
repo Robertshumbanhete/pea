@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<script>  
+  const manager_mode = <%-  locals.manager_mode  || `0` %>;
+</script>
+<html lang="en">
+  <!--end::Head-->
+  <%- include('./page_components/head.ejs') %>
+  <!--begin::Body-->
+  <body
+    class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed"
+  >
+    <div class="d-flex flex-column flex-root">
+    
+        <!--begin::Aside-->
+        <%- include('./page_components/aside.ejs') %>
+
+        <div class="wrapper    m-10 "> 

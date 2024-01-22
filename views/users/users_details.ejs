@@ -1,0 +1,232 @@
+<%- include('../_admin_page_headers/admin_top') %>
+<div class="fs-2 text-dark">
+  <span class="svg-icon svg-icon-2 svg-icon-dark">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none">
+      <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor"></rect>
+      <rect
+        opacity="0.3"
+        x="13"
+        y="2"
+        width="9"
+        height="9"
+        rx="2"
+        fill="currentColor"></rect>
+      <rect
+        opacity="0.3"
+        x="13"
+        y="13"
+        width="9"
+        height="9"
+        rx="2"
+        fill="currentColor"></rect>
+      <rect
+        opacity="0.3"
+        x="2"
+        y="13"
+        width="9"
+        height="9"
+        rx="2"
+        fill="currentColor"></rect>
+    </svg>
+  </span>
+  Users Details
+</div>
+<hr class="text-dark" />
+
+<section><%- include('./includes/user_menu') %></section>
+
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card shadow border border-dark">
+      <div class="card-body">
+        <div class="row">
+          <h5>Account Details</h5>
+          <div class="col-sm-4 mt-4">
+            <label class="fw-bolder fs-7">First Name</label>
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              id="first_name" />
+            <span class="text-danger" id="label_first_name"></span>
+          </div>
+          <div class="col-sm-4 mt-4">
+            <label class="fw-bolder fs-7">Last Name</label>
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              id="last_name" />
+            <span class="text-danger" id="label_last_name"></span>
+          </div>
+          <div class="col-sm-4 mt-4">
+            <label class="fw-bolder fs-7">Username</label>
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              id="username" />
+            <span class="text-danger" id="label_username"></span>
+          </div>
+          <div class="col-sm-4 mt-4">
+            <label class="fw-bolder fs-7">Email</label>
+            <input
+              type="email"
+              class="form-control form-control-sm"
+              id="email" />
+            <span class="text-danger" id="label_email"></span>
+          </div>
+          <div class="col-sm-4 mt-4">
+            <label class="fw-bolder fs-7">Status</label>
+
+            <select class="form-select form-select-sm" id="acc_status">
+              <option></option>
+              <option value="1">Active</option>
+              <option value="0">Disabled</option>
+            </select>
+            <span class="text-danger" id="label_acc_status"></span>
+          </div>
+        </div>
+        <button
+          class="btn btn-sm btn-dark mt-6"
+          onclick="query_update_user_details()">
+          Update
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card shadow border border-dark">
+      <div class="card-body">
+        <h5>Change Password</h5>
+        <div class="row">
+          <div class="col-sm-6 mt-4">
+            <label class="fw-bolder fs-7">New Password</label>
+            <input
+              type="password"
+              class="form-control form-control-sm"
+              id="new_password" />
+            <span class="text-danger" id="label_new_password"></span>
+          </div>
+          <div class="col-sm-6 mt-4">
+            <label class="fw-bolder fs-7">Confirm Password</label>
+            <input
+              type="password"
+              class="form-control form-control-sm"
+              id="confirm_password" />
+            <span class="text-danger" id="label_confirm_password"></span>
+          </div>
+        </div>
+        <button
+          class="btn btn-sm btn-dark mt-6"
+          onclick="query_change_password()">
+          Update <span id="btn_update_user_det"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    var first_name;
+    var last_name;
+    var username;
+    var email;
+    var acc_status;
+
+
+    var new_password;
+    var confirm_password;
+
+    function update_pwd_globals() {
+    // Labels
+
+        new_password = $("#new_password").val();
+        $("#label_new_password").html("");
+        $("#new_password").removeClass("border-danger");
+
+        confirm_password = $("#confirm_password").val();
+        $("#label_empty").html("");
+        $("#confirm_password").removeClass("border-danger");
+    }
+
+    async function query_change_password() {
+        update_pwd_globals();
+
+    var ajax_url = "/user/<%- locals.param_user_id || `0` %>/update/password";
+    data = `new_password=${new_password}&confirm_password=${confirm_password}`;
+
+    set_loading_spinner("btn_empty");
+    ajax_response = await ajax_request(ajax_url, data);
+    release_loading_spinner("btn_empty");
+
+    console.log(ajax_response);
+    // >>>>>>>>>>>>>> Response
+    const success_response = () => {
+      _display_success_server_res_msg("Successful", `  <br> Finalizing  <br> <br> <span class="spinner-border spinner-border sm">`, "success");
+    };
+    display_ajax_response(ajax_response, success_response);
+    // >>>>>>>>>>>>>>
+  }
+
+
+  const user_details = <%- JSON.stringify(locals.user_details) || `{}` %>;
+
+    function update_globals() {
+      // Labels
+      first_name = $("#first_name").val();
+      $("#label_first_name").html("");
+      $("#first_name").removeClass("border-danger");
+
+      last_name = $("#last_name").val();
+      $("#label_last_name").html("");
+      $("#last_name").removeClass("border-danger");
+
+      username = $("#username").val();
+      $("#label_username").html("");
+      $("#username").removeClass("border-danger");
+
+      email = $("#email").val();
+      $("#label_email").html("");
+      $("#email").removeClass("border-danger");
+
+      acc_status = $("#acc_status").val();
+      $("#label_acc_status").html("");
+      $("#acc_status").removeClass("border-danger");
+    }
+
+    async function query_update_user_details() {
+      update_globals();
+
+
+      var ajax_url = `/user/<%- locals.param_user_id || `0` %>/update/account_details`;
+      data = `first_name=${first_name}&last_name=${last_name}&username=${username}&email=${email}&acc_status=${acc_status}`;
+
+      set_loading_spinner("btn_update_user_det");
+      ajax_response = await ajax_request(ajax_url, data);
+      release_loading_spinner("btn_update_user_det");
+
+      console.log();
+      // >>>>>>>>>>>>>> Response
+      const success_response = () => {
+        _display_success_server_res_msg("Successful", `  <br> Finalizing  <br> <br> <span class="spinner-border spinner-border sm">`, "success");
+      };
+      display_ajax_response(ajax_response, success_response);
+      // >>>>>>>>>>>>>>
+    }
+
+    $(document).ready(() => {
+      $("#user_menu_2").addClass("active");
+
+      $("#first_name").val(user_details.first_name);
+      $("#last_name").val(user_details.last_name);
+      $("#username").val(user_details.username);
+      $("#email").val(user_details.email);
+      $("#acc_status").val(user_details.status);
+
+      display_breadcrumb(" User Details");
+    });
+</script>
+<%- include('../_admin_page_headers/admin_bottom') %>
